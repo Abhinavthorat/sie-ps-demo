@@ -1,0 +1,432 @@
+/* ============================================================
+   Task 6 — Global Interactivity Layer Controls
+   ============================================================ */
+@import './tokens.css';
+
+/* ── Pill toggle buttons (tier/segment filter) ─────────────── */
+.pill-group {
+  display: flex;
+  gap: var(--sp-2);
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-mid);
+  background: transparent;
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semi);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all var(--dur-fast) ease;
+  white-space: nowrap;
+}
+
+.pill-btn:hover {
+  color: var(--text-primary);
+  border-color: var(--border-accent);
+}
+
+.pill-btn.is-active {
+  color: var(--text-primary);
+  border-color: var(--ps-teal);
+  background: rgba(0, 184, 212, 0.12);
+  box-shadow: 0 0 10px var(--ps-teal-glow);
+}
+
+.pill-btn--essential.is-active {
+  border-color: var(--ps-blue-light);
+  background: rgba(0, 112, 209, 0.15);
+  box-shadow: 0 0 10px rgba(0,112,209,0.25);
+}
+
+.pill-btn--extra.is-active {
+  border-color: var(--ps-teal-light);
+  background: rgba(0, 184, 212, 0.15);
+  box-shadow: 0 0 10px var(--ps-teal-glow);
+}
+
+.pill-btn--premium.is-active {
+  border-color: var(--ps-purple-light);
+  background: rgba(168, 85, 247, 0.15);
+  box-shadow: 0 0 10px var(--ps-purple-glow);
+}
+
+/* ── Inline filter row (above each viz) ───────────────────── */
+.viz-filter-row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-4);
+  flex-wrap: wrap;
+  min-height: 32px;
+}
+
+.viz-filter-row__label {
+  font-size: var(--fs-2xs);
+  font-weight: var(--fw-semi);
+  letter-spacing: var(--ls-wider);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+/* ── Clear filter button ──────────────────────────────────── */
+.clear-filter-btn {
+  display: none;
+  align-items: center;
+  gap: 5px;
+  margin-left: auto;
+  padding: 3px 10px;
+  border: 1px solid rgba(255,113,108,0.3);
+  background: rgba(255,113,108,0.08);
+  color: #FF716C;
+  border-radius: var(--radius-full);
+  font-size: var(--fs-2xs);
+  font-weight: var(--fw-semi);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all var(--dur-fast) ease;
+}
+
+.clear-filter-btn.is-visible {
+  display: inline-flex;
+}
+
+.clear-filter-btn:hover {
+  background: rgba(255,113,108,0.16);
+  border-color: rgba(255,113,108,0.5);
+}
+
+/* ── Filter badge (shown in other charts when filtered) ────── */
+.filter-active-badge {
+  display: none;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  background: rgba(0, 184, 212, 0.1);
+  border: 1px solid rgba(0, 229, 255, 0.25);
+  color: var(--ps-teal-light);
+  font-size: var(--fs-2xs);
+  font-weight: var(--fw-semi);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+}
+
+.filter-active-badge.is-visible {
+  display: inline-flex;
+}
+
+/* ── Segment dropdown ─────────────────────────────────────── */
+.seg-select {
+  appearance: none;
+  -webkit-appearance: none;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border-mid);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  font-family: var(--font-body);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semi);
+  padding: 4px 28px 4px 10px;
+  cursor: pointer;
+  outline: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath d='M2 3.5l3 3 3-3' stroke='%235A7090' stroke-width='1.4' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  transition: border-color var(--dur-fast) ease;
+}
+
+.seg-select:hover {
+  border-color: var(--border-accent);
+  color: var(--text-primary);
+}
+
+.seg-select option {
+  background: var(--bg-panel);
+  color: var(--text-primary);
+}
+
+/* ── Timeline playback controls ───────────────────────────── */
+.timeline-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-4);
+  flex-wrap: wrap;
+}
+
+.play-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border-accent);
+  background: rgba(0, 184, 212, 0.1);
+  color: var(--ps-teal-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all var(--dur-fast) ease;
+}
+
+.play-btn:hover {
+  background: rgba(0, 184, 212, 0.2);
+  border-color: var(--ps-teal-light);
+  box-shadow: 0 0 10px var(--ps-teal-glow);
+}
+
+.play-btn svg { pointer-events: none; }
+
+.speed-group {
+  display: flex;
+  gap: var(--sp-1);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 2px;
+}
+
+.speed-btn {
+  padding: 3px 8px;
+  border-radius: 4px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  cursor: pointer;
+  transition: all var(--dur-fast) ease;
+}
+
+.speed-btn.is-active {
+  background: rgba(0, 184, 212, 0.15);
+  color: var(--ps-teal-light);
+}
+
+.playback-label {
+  font-size: var(--fs-2xs);
+  color: var(--text-muted);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+  margin-left: auto;
+}
+
+/* ── Network risk threshold slider ─────────────────────────── */
+.threshold-row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-4);
+  flex-wrap: wrap;
+}
+
+.threshold-row__label {
+  font-size: var(--fs-2xs);
+  font-weight: var(--fw-semi);
+  letter-spacing: var(--ls-wider);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.threshold-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  flex: 1;
+  min-width: 100px;
+  height: 4px;
+  background: var(--border-subtle);
+  border-radius: var(--radius-full);
+  outline: none;
+  cursor: pointer;
+}
+
+.threshold-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #FF716C;
+  box-shadow: 0 0 8px rgba(255,113,108,0.5);
+  cursor: grab;
+}
+
+.threshold-slider::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #FF716C;
+  border: none;
+  cursor: grab;
+}
+
+.threshold-value {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  color: #FF716C;
+  min-width: 36px;
+  text-align: right;
+}
+
+/* ── Right-click node popover ─────────────────────────────── */
+.node-popover {
+  position: fixed;
+  background: rgba(10, 18, 35, 0.96);
+  border: 1px solid var(--border-mid);
+  border-radius: var(--radius-md);
+  padding: var(--sp-3) var(--sp-4);
+  font-family: var(--font-body);
+  font-size: var(--fs-xs);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-lg);
+  z-index: var(--z-modal);
+  min-width: 180px;
+  pointer-events: auto;
+  display: none;
+}
+
+.node-popover.is-visible { display: block; }
+
+.node-popover__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--sp-2);
+}
+
+.node-popover__title {
+  font-weight: var(--fw-bold);
+  color: var(--text-primary);
+}
+
+.node-popover__close {
+  width: 18px;
+  height: 18px;
+  border: none;
+  background: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+  transition: color var(--dur-fast) ease;
+}
+.node-popover__close:hover { color: var(--text-primary); }
+
+.node-popover__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2px 0;
+  color: var(--text-secondary);
+}
+
+.node-popover__row strong { color: var(--text-primary); font-weight: var(--fw-semi); }
+
+/* ── Counterfactual drag handle ───────────────────────────── */
+.cf-drag-handle {
+  cursor: ns-resize;
+}
+
+.cf-drag-handle circle {
+  transition: r var(--dur-fast) ease, filter var(--dur-fast) ease;
+}
+
+.cf-drag-handle:hover circle {
+  filter: drop-shadow(0 0 6px currentColor);
+}
+
+.cf-effect-label {
+  pointer-events: none;
+}
+
+/* ── Outcomes reset link ──────────────────────────────────── */
+.outcomes-reset-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: var(--sp-4);
+  font-size: var(--fs-xs);
+  color: var(--ps-teal-light);
+  cursor: pointer;
+  text-decoration: none;
+  opacity: 0;
+  transition: opacity var(--dur-base) ease;
+  border-bottom: 1px dashed currentColor;
+}
+
+.outcomes-reset-link.is-visible {
+  opacity: 1;
+}
+
+.outcomes-reset-link:hover {
+  color: var(--ps-teal-light);
+  opacity: 0.75;
+}
+
+/* ── Active filter strip (top of section) ─────────────────── */
+.filter-strip {
+  display: none;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-2) var(--sp-4);
+  background: rgba(0, 184, 212, 0.07);
+  border: 1px solid rgba(0, 229, 255, 0.2);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--sp-5);
+  font-size: var(--fs-xs);
+  color: var(--text-secondary);
+  flex-wrap: wrap;
+}
+
+.filter-strip.is-visible {
+  display: flex;
+}
+
+.filter-strip__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  background: rgba(0, 184, 212, 0.15);
+  color: var(--ps-teal-light);
+  font-weight: var(--fw-semi);
+  font-size: var(--fs-2xs);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+}
+
+.filter-strip__reset {
+  margin-left: auto;
+  color: #FF716C;
+  cursor: pointer;
+  font-weight: var(--fw-semi);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.filter-strip__reset:hover { opacity: 0.75; }
+
+/* ── Zoom hint (network) ──────────────────────────────────── */
+.zoom-hint {
+  font-size: var(--fs-2xs);
+  color: var(--text-muted);
+  font-style: italic;
+  letter-spacing: 0.03em;
+}

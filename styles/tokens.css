@@ -1,0 +1,167 @@
+/* ============================================================
+   PS5 Design Tokens
+   ============================================================ */
+:root {
+
+  /* ── Color Palette ─────────────────────────────────────── */
+  --ps-blue:          #0070D1;
+  --ps-blue-light:    #00AAFF;
+  --ps-blue-dark:     #004F99;
+
+  --ps-teal:          #00B8D4;
+  --ps-teal-light:    #00E5FF;
+  --ps-teal-glow:     rgba(0, 184, 212, 0.55);
+
+  --ps-purple:        #7B2FBE;
+  --ps-purple-light:  #A855F7;
+  --ps-purple-glow:   rgba(123, 47, 190, 0.55);
+
+  --ps-gold:          #F5A623;
+  --ps-gold-light:    #FFD166;
+
+  /* Dark backgrounds */
+  --bg-void:          #040811;
+  --bg-deep:          #080E1C;
+  --bg-surface:       #0D1626;
+  --bg-panel:         #121E35;
+  --bg-panel-hover:   #172640;
+  --bg-card:          #1A2B45;
+  --bg-overlay:       rgba(4, 8, 17, 0.85);
+
+  /* Text */
+  --text-primary:     #F0F4FF;
+  --text-secondary:   #A0B4CC;
+  --text-muted:       #5A7090;
+  --text-accent:      var(--ps-teal-light);
+
+  /* Border */
+  --border-subtle:    rgba(255, 255, 255, 0.07);
+  --border-mid:       rgba(255, 255, 255, 0.14);
+  --border-accent:    rgba(0, 184, 212, 0.4);
+
+  /* ── Gradient Presets per Tier ─────────────────────────── */
+  /* Essential */
+  --grad-essential:
+    linear-gradient(160deg,
+      #0D1A2E 0%,
+      #0A2248 40%,
+      #0070D1 100%);
+  --grad-essential-card:
+    linear-gradient(135deg, #0D2050 0%, #0A3080 100%);
+  --grad-essential-badge:
+    linear-gradient(90deg, #0070D1, #00AAFF);
+
+  /* Extra */
+  --grad-extra:
+    linear-gradient(160deg,
+      #0D1A30 0%,
+      #0A2040 35%,
+      #00607A 75%,
+      #00B8D4 100%);
+  --grad-extra-card:
+    linear-gradient(135deg, #0A2540 0%, #005F78 100%);
+  --grad-extra-badge:
+    linear-gradient(90deg, #007A99, #00B8D4);
+
+  /* Premium */
+  --grad-premium:
+    linear-gradient(160deg,
+      #120D24 0%,
+      #1A0A36 30%,
+      #5A1A99 65%,
+      #A855F7 100%);
+  --grad-premium-card:
+    linear-gradient(135deg, #1A0B35 0%, #5A1A99 100%);
+  --grad-premium-badge:
+    linear-gradient(90deg, #7B2FBE, #A855F7);
+
+  /* Shared shimmer overlay */
+  --grad-shimmer:
+    linear-gradient(105deg,
+      transparent 40%,
+      rgba(255,255,255,0.06) 50%,
+      transparent 60%);
+
+  /* ── Typography Scale ──────────────────────────────────── */
+  /* Matches Aetheris Console design system (stitch prototypes) */
+  --font-display:   'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-body:      'Manrope', system-ui, -apple-system, sans-serif;
+  --font-mono:      'JetBrains Mono', 'SF Mono', monospace;
+
+  --fs-2xs:  0.625rem;   /*  10px */
+  --fs-xs:   0.75rem;    /*  12px */
+  --fs-sm:   0.875rem;   /*  14px */
+  --fs-base: 1rem;       /*  16px */
+  --fs-md:   1.125rem;   /*  18px */
+  --fs-lg:   1.25rem;    /*  20px */
+  --fs-xl:   1.5rem;     /*  24px */
+  --fs-2xl:  1.875rem;   /*  30px */
+  --fs-3xl:  2.25rem;    /*  36px */
+  --fs-4xl:  3rem;       /*  48px */
+  --fs-5xl:  3.75rem;    /*  60px */
+
+  --fw-regular: 400;
+  --fw-medium:  500;
+  --fw-semi:    600;
+  --fw-bold:    700;
+  --fw-black:   900;
+
+  --lh-tight:  1.1;
+  --lh-snug:   1.3;
+  --lh-normal: 1.5;
+  --lh-loose:  1.7;
+
+  --ls-tight:  -0.03em;
+  --ls-normal: 0em;
+  --ls-wide:   0.06em;
+  --ls-wider:  0.12em;
+
+  /* ── Spacing Scale ─────────────────────────────────────── */
+  --sp-1:   0.25rem;   /*  4px */
+  --sp-2:   0.5rem;    /*  8px */
+  --sp-3:   0.75rem;   /* 12px */
+  --sp-4:   1rem;      /* 16px */
+  --sp-5:   1.25rem;   /* 20px */
+  --sp-6:   1.5rem;    /* 24px */
+  --sp-8:   2rem;      /* 32px */
+  --sp-10:  2.5rem;    /* 40px */
+  --sp-12:  3rem;      /* 48px */
+  --sp-16:  4rem;      /* 64px */
+  --sp-20:  5rem;      /* 80px */
+  --sp-24:  6rem;      /* 96px */
+  --sp-32:  8rem;      /* 128px */
+
+  /* ── Border Radius ─────────────────────────────────────── */
+  --radius-sm:   6px;
+  --radius-md:   12px;
+  --radius-lg:   20px;
+  --radius-xl:   28px;
+  --radius-2xl:  40px;
+  --radius-full: 9999px;
+
+  /* ── Shadows / Glows ───────────────────────────────────── */
+  --shadow-sm:      0 2px 8px rgba(0,0,0,0.4);
+  --shadow-md:      0 4px 20px rgba(0,0,0,0.5);
+  --shadow-lg:      0 8px 40px rgba(0,0,0,0.6);
+
+  --glow-blue:      0 0 24px rgba(0,112,209,0.45);
+  --glow-teal:      0 0 28px var(--ps-teal-glow);
+  --glow-purple:    0 0 28px var(--ps-purple-glow);
+
+  /* ── Motion ────────────────────────────────────────────── */
+  --ease-out-expo:  cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-expo:   cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-spring:    cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --dur-fast:   150ms;
+  --dur-base:   250ms;
+  --dur-slow:   400ms;
+  --dur-xslow:  600ms;
+
+  /* ── Z-Index Layers ────────────────────────────────────── */
+  --z-base:    0;
+  --z-raised:  10;
+  --z-overlay: 100;
+  --z-modal:   200;
+  --z-toast:   300;
+}

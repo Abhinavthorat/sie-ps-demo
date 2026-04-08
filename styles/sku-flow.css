@@ -1,0 +1,524 @@
+/* ============================================================
+   SKU Flow Visualization — Task 8
+   styles/sku-flow.css
+   ============================================================ */
+@import './tokens.css';
+
+/* ── Section wrapper ──────────────────────────────────────── */
+.sku-flow-section {
+  background: var(--bg-deep);
+  padding: var(--sp-20) 0 var(--sp-24);
+  position: relative;
+  overflow: hidden;
+}
+
+/* ── Three-stage layout ───────────────────────────────────── */
+.sku-flow-canvas {
+  display: grid;
+  grid-template-columns: 220px 1fr 220px 1fr 260px;
+  grid-template-rows: auto;
+  align-items: center;
+  gap: 0;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 var(--sp-6);
+  min-height: 480px;
+  position: relative;
+}
+
+/* Stage labels */
+.flow-stage-label {
+  text-align: center;
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-wider);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: var(--sp-4);
+  padding-bottom: var(--sp-2);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+/* ── Stage 1: SKU pill cards ──────────────────────────────── */
+.sku-stage {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  grid-column: 1;
+}
+
+.sku-pill {
+  position: relative;
+  border-radius: var(--radius-lg);
+  padding: var(--sp-4) var(--sp-5);
+  cursor: pointer;
+  border: 1.5px solid var(--border-subtle);
+  transition:
+    transform var(--dur-base) var(--ease-out-expo),
+    border-color var(--dur-base) ease,
+    box-shadow var(--dur-base) ease;
+  overflow: hidden;
+  user-select: none;
+}
+
+.sku-pill::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity var(--dur-base) ease;
+}
+
+.sku-pill--essential { background: var(--grad-essential-card); }
+.sku-pill--extra     { background: var(--grad-extra-card); }
+.sku-pill--premium   { background: var(--grad-premium-card); }
+
+.sku-pill--essential::before { background: linear-gradient(135deg, rgba(0,112,209,0.15), transparent); }
+.sku-pill--extra::before     { background: linear-gradient(135deg, rgba(0,184,212,0.15), transparent); }
+.sku-pill--premium::before   { background: linear-gradient(135deg, rgba(168,85,247,0.15), transparent); }
+
+.sku-pill:hover { transform: translateX(4px); }
+.sku-pill:hover::before { opacity: 1; }
+
+.sku-pill.is-active {
+  border-color: transparent;
+  transform: translateX(6px);
+}
+
+.sku-pill.is-active::before { opacity: 1; }
+
+.sku-pill--essential.is-active {
+  border-color: rgba(0,170,255,0.5);
+  box-shadow: 0 0 20px rgba(0,112,209,0.3), var(--shadow-md);
+}
+.sku-pill--extra.is-active {
+  border-color: rgba(0,229,255,0.5);
+  box-shadow: 0 0 20px rgba(0,184,212,0.3), var(--shadow-md);
+}
+.sku-pill--premium.is-active {
+  border-color: rgba(168,85,247,0.5);
+  box-shadow: 0 0 20px rgba(168,85,247,0.3), var(--shadow-md);
+}
+
+.sku-pill__tier-label {
+  font-size: 9px;
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-wider);
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.sku-pill--essential .sku-pill__tier-label { color: var(--ps-blue-light); }
+.sku-pill--extra     .sku-pill__tier-label { color: var(--ps-teal-light); }
+.sku-pill--premium   .sku-pill__tier-label { color: var(--ps-purple-light); }
+
+.sku-pill__name {
+  font-family: var(--font-display);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-bold);
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.sku-pill__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: var(--sp-2);
+}
+
+.sku-pill__count {
+  font-size: var(--fs-xs);
+  color: var(--text-secondary);
+}
+
+.sku-pill__check {
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255,255,255,0.2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 9px;
+  transition: all var(--dur-fast) ease;
+  flex-shrink: 0;
+}
+
+.sku-pill.is-active .sku-pill__check {
+  background: var(--ps-teal-light);
+  border-color: var(--ps-teal-light);
+  color: #000;
+}
+
+/* ── Flow arrow columns (SVG canvas) ──────────────────────── */
+.flow-arrow-col {
+  position: relative;
+  align-self: stretch;
+  min-height: 400px;
+}
+
+.flow-arrow-col--left  { grid-column: 2; }
+.flow-arrow-col--right { grid-column: 4; }
+
+.flow-arrow-col svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
+
+/* Arrow path styles */
+.flow-path {
+  fill: none;
+  stroke-linecap: round;
+  transition: stroke-width 0.4s var(--ease-out-expo), opacity 0.3s ease;
+}
+
+.flow-path--essential { stroke: rgba(0,170,255,0.35); }
+.flow-path--extra     { stroke: rgba(0,229,255,0.35); }
+.flow-path--premium   { stroke: rgba(168,85,247,0.35); }
+
+.flow-path.is-active { opacity: 1; }
+
+/* Arrow count badge */
+.flow-badge {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 10px;
+  font-weight: var(--fw-bold);
+  color: var(--text-primary);
+  background: rgba(13,22,38,0.92);
+  border: 1px solid var(--border-mid);
+  border-radius: var(--radius-full);
+  padding: 2px 7px;
+  white-space: nowrap;
+  pointer-events: none;
+  transition: opacity var(--dur-fast) ease;
+}
+
+/* ── Stage 2: Perceived Value bands ───────────────────────── */
+.pv-stage {
+  grid-column: 3;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.pv-band {
+  border-radius: var(--radius-md);
+  background: rgba(20,30,50,0.7);
+  border: 1px solid var(--border-subtle);
+  padding: var(--sp-3) var(--sp-4);
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+  transition: border-color var(--dur-fast) ease;
+}
+
+.pv-band:hover { border-color: var(--border-mid); }
+
+.pv-band__label {
+  font-size: 10px;
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+  margin-bottom: var(--sp-2);
+}
+
+.pv-band--high .pv-band__label { color: var(--ps-teal-light); }
+.pv-band--mid  .pv-band__label { color: var(--ps-gold-light); }
+.pv-band--low  .pv-band__label { color: #FF716C; }
+
+.pv-band__bar-track {
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: rgba(255,255,255,0.04);
+  overflow: hidden;
+  margin-bottom: var(--sp-2);
+}
+
+.pv-band__bar-fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width 0.6s var(--ease-out-expo);
+}
+
+.pv-band--high .pv-band__bar-fill { background: linear-gradient(90deg, var(--ps-teal), var(--ps-teal-light)); }
+.pv-band--mid  .pv-band__bar-fill { background: linear-gradient(90deg, #B8860B, var(--ps-gold-light)); }
+.pv-band--low  .pv-band__bar-fill { background: linear-gradient(90deg, #C0392B, #FF716C); }
+
+.pv-band__count {
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pv-band__count-n {
+  font-weight: var(--fw-bold);
+  color: var(--text-primary);
+  transition: color var(--dur-fast) ease;
+}
+
+/* Value gap annotation */
+.value-gap-annotation {
+  position: absolute;
+  bottom: -2px;
+  right: var(--sp-3);
+  font-size: 9px;
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-wide);
+  color: #FF716C;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity var(--dur-base) ease, transform var(--dur-base) ease;
+  cursor: pointer;
+  text-decoration: underline dotted;
+  pointer-events: none;
+}
+
+.value-gap-annotation.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* ── Tooltip for PV bands ─────────────────────────────────── */
+.pv-tooltip {
+  position: fixed;
+  z-index: calc(var(--z-overlay) + 1);
+  pointer-events: none;
+  background: rgba(13,22,38,0.97);
+  border: 1px solid var(--border-mid);
+  border-radius: var(--radius-md);
+  padding: var(--sp-3) var(--sp-4);
+  min-width: 180px;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity var(--dur-fast) ease, transform var(--dur-fast) ease;
+}
+
+.pv-tooltip.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.pv-tooltip__title {
+  font-size: 10px;
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: var(--sp-2);
+}
+
+.pv-tooltip__seg-bar {
+  height: 14px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  display: flex;
+  margin-bottom: var(--sp-1);
+}
+
+.pv-tooltip__seg-label {
+  font-size: 10px;
+  color: var(--text-secondary);
+  display: flex;
+  justify-content: space-between;
+}
+
+/* ── Stage 3: Churn Risk gauges ───────────────────────────── */
+.churn-stage {
+  grid-column: 5;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.churn-node {
+  border-radius: var(--radius-md);
+  background: rgba(20,30,50,0.7);
+  border: 1px solid var(--border-subtle);
+  padding: var(--sp-3) var(--sp-4);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  transition: border-color var(--dur-fast) ease;
+}
+
+.churn-node--low    { border-left: 3px solid var(--ps-teal); }
+.churn-node--mid    { border-left: 3px solid var(--ps-gold); }
+.churn-node--high   { border-left: 3px solid #FF716C; }
+
+.churn-arc-wrap {
+  position: relative;
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+}
+
+.churn-arc-wrap svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.churn-arc-track {
+  fill: none;
+  stroke: rgba(255,255,255,0.06);
+  stroke-width: 5;
+}
+
+.churn-arc-fill {
+  fill: none;
+  stroke-width: 5;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.7s var(--ease-out-expo);
+}
+
+.churn-node--low  .churn-arc-fill { stroke: var(--ps-teal); }
+.churn-node--mid  .churn-arc-fill { stroke: var(--ps-gold); }
+.churn-node--high .churn-arc-fill { stroke: #FF716C; }
+
+.churn-arc-label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: var(--fw-black);
+  color: var(--text-primary);
+}
+
+.churn-node__info { flex: 1; min-width: 0; }
+
+.churn-node__risk-label {
+  font-size: 10px;
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.churn-node--low  .churn-node__risk-label { color: var(--ps-teal-light); }
+.churn-node--mid  .churn-node__risk-label { color: var(--ps-gold-light); }
+.churn-node--high .churn-node__risk-label { color: #FF716C; }
+
+.churn-node__users {
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+}
+
+.churn-delta {
+  font-size: 10px;
+  font-weight: var(--fw-bold);
+  border-radius: var(--radius-sm);
+  padding: 2px 5px;
+  flex-shrink: 0;
+}
+
+.churn-delta--positive { background: rgba(255,113,108,0.15); color: #FF716C; }
+.churn-delta--negative { background: rgba(74,240,144,0.15);  color: #4AF090; }
+.churn-delta--neutral  { background: rgba(255,255,255,0.06); color: var(--text-muted); }
+
+/* ── Simulation controls ───────────────────────────────────── */
+.sim-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  max-width: 1280px;
+  margin: var(--sp-8) auto 0;
+  padding: var(--sp-4) var(--sp-6);
+  background: rgba(20,30,50,0.55);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  flex-wrap: wrap;
+}
+
+.sim-month-display {
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-black);
+  color: var(--ps-teal-light);
+  min-width: 90px;
+}
+
+.sim-month-label {
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+}
+
+.sim-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-2) var(--sp-5);
+  border-radius: var(--radius-full);
+  border: 1.5px solid var(--border-mid);
+  background: rgba(255,255,255,0.04);
+  color: var(--text-primary);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semi);
+  font-family: var(--font-body);
+  letter-spacing: var(--ls-wide);
+  cursor: pointer;
+  transition: all var(--dur-fast) ease;
+}
+
+.sim-btn:hover {
+  background: rgba(0,184,212,0.12);
+  border-color: var(--ps-teal);
+  color: var(--ps-teal-light);
+}
+
+.sim-btn--active {
+  background: rgba(0,184,212,0.15);
+  border-color: var(--ps-teal);
+  color: var(--ps-teal-light);
+}
+
+.sim-btn--reset {
+  background: none;
+  border-color: var(--border-subtle);
+  color: var(--text-muted);
+}
+
+.sim-btn--reset:hover {
+  background: rgba(255,255,255,0.04);
+  border-color: var(--border-mid);
+  color: var(--text-secondary);
+}
+
+.sim-progress {
+  flex: 1;
+  min-width: 100px;
+  height: 3px;
+  background: rgba(255,255,255,0.06);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.sim-progress__fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--ps-teal), var(--ps-blue-light));
+  border-radius: var(--radius-full);
+  transition: width 0.4s linear;
+  width: 0%;
+}
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 1100px) {
+  .sku-flow-canvas {
+    grid-template-columns: 1fr;
+    gap: var(--sp-4);
+  }
+  .sku-stage         { grid-column: 1; flex-direction: row; flex-wrap: wrap; gap: var(--sp-2); }
+  .sku-pill          { flex: 1; min-width: 140px; }
+  .flow-arrow-col    { display: none; }
+  .pv-stage, .churn-stage { grid-column: 1; }
+}

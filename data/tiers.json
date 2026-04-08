@@ -1,0 +1,252 @@
+{
+  "tiers": [
+    {
+      "id": "essential",
+      "name": "PlayStation Plus Essential",
+      "shortName": "Essential",
+      "tier": 1,
+      "colorKey": "essential",
+      "pricing": {
+        "monthly": { "usd": 9.99, "label": "$9.99/mo" },
+        "quarterly": { "usd": 24.99, "label": "$24.99/3 mo" },
+        "annual": { "usd": 79.99, "label": "$79.99/yr" }
+      },
+      "catalogCount": 0,
+      "cloudStorageGB": 100,
+      "features": [
+        {
+          "id": "monthly_games",
+          "label": "Monthly Games",
+          "detail": "2–3 curated titles per month to keep",
+          "included": true
+        },
+        {
+          "id": "online_mp",
+          "label": "Online Multiplayer",
+          "detail": "Full access for all PS5 and PS4 games",
+          "included": true
+        },
+        {
+          "id": "cloud_storage",
+          "label": "Cloud Save Storage",
+          "detail": "100 GB for game saves",
+          "included": true
+        },
+        {
+          "id": "exclusive_discounts",
+          "label": "PS Store Discounts",
+          "detail": "Members-only sale prices up to 60% off",
+          "included": true
+        },
+        {
+          "id": "share_play",
+          "label": "Share Play",
+          "detail": "Stream gameplay or hand controllers to friends",
+          "included": true
+        },
+        {
+          "id": "game_catalog",
+          "label": "Game Catalog (400+ titles)",
+          "detail": "Unlimited on-demand access to back-catalogue",
+          "included": false
+        },
+        {
+          "id": "game_trials",
+          "label": "Game Trials",
+          "detail": "Time-limited demos of new releases before buying",
+          "included": false
+        },
+        {
+          "id": "classics_catalog",
+          "label": "Classics Catalog",
+          "detail": "PS1, PS2, PS3, PSP, and PS4 legacy games",
+          "included": false
+        },
+        {
+          "id": "ubisoft_plus",
+          "label": "Ubisoft+ Classics",
+          "detail": "Ubisoft back-catalogue via partnership",
+          "included": false
+        },
+        {
+          "id": "ps_now_streaming",
+          "label": "Cloud Streaming",
+          "detail": "Stream PS3, PS4, PS5 games without download",
+          "included": false
+        }
+      ],
+      "exclusivePerks": [],
+      "tagline": "The essentials, nothing more."
+    },
+    {
+      "id": "extra",
+      "name": "PlayStation Plus Extra",
+      "shortName": "Extra",
+      "tier": 2,
+      "colorKey": "extra",
+      "pricing": {
+        "monthly": { "usd": 14.99, "label": "$14.99/mo" },
+        "quarterly": { "usd": 39.99, "label": "$39.99/3 mo" },
+        "annual": { "usd": 134.99, "label": "$134.99/yr" }
+      },
+      "catalogCount": 400,
+      "cloudStorageGB": 100,
+      "features": [
+        {
+          "id": "monthly_games",
+          "label": "Monthly Games",
+          "detail": "2–3 curated titles per month to keep",
+          "included": true
+        },
+        {
+          "id": "online_mp",
+          "label": "Online Multiplayer",
+          "detail": "Full access for all PS5 and PS4 games",
+          "included": true
+        },
+        {
+          "id": "cloud_storage",
+          "label": "Cloud Save Storage",
+          "detail": "100 GB for game saves",
+          "included": true
+        },
+        {
+          "id": "exclusive_discounts",
+          "label": "PS Store Discounts",
+          "detail": "Members-only sale prices up to 60% off",
+          "included": true
+        },
+        {
+          "id": "share_play",
+          "label": "Share Play",
+          "detail": "Stream gameplay or hand controllers to friends",
+          "included": true
+        },
+        {
+          "id": "game_catalog",
+          "label": "Game Catalog (400+ titles)",
+          "detail": "Includes AAA PS5 and PS4 hits, on-demand",
+          "included": true
+        },
+        {
+          "id": "ubisoft_plus",
+          "label": "Ubisoft+ Classics",
+          "detail": "Assassin's Creed, Far Cry, Rainbow Six & more",
+          "included": true
+        },
+        {
+          "id": "game_trials",
+          "label": "Game Trials",
+          "detail": "Time-limited demos of new releases before buying",
+          "included": false
+        },
+        {
+          "id": "classics_catalog",
+          "label": "Classics Catalog",
+          "detail": "PS1, PS2, PS3, PSP, and PS4 legacy games",
+          "included": false
+        },
+        {
+          "id": "ps_now_streaming",
+          "label": "Cloud Streaming",
+          "detail": "Stream PS3, PS4, PS5 games without download",
+          "included": false
+        }
+      ],
+      "exclusivePerks": [
+        "Early access to select indie titles",
+        "PlayStation Stars bonus rewards multiplier (2×)"
+      ],
+      "tagline": "Hundreds of games, one price."
+    },
+    {
+      "id": "premium",
+      "name": "PlayStation Plus Premium",
+      "shortName": "Premium",
+      "tier": 3,
+      "colorKey": "premium",
+      "pricing": {
+        "monthly": { "usd": 17.99, "label": "$17.99/mo" },
+        "quarterly": { "usd": 49.99, "label": "$49.99/3 mo" },
+        "annual": { "usd": 159.99, "label": "$159.99/yr" }
+      },
+      "catalogCount": 700,
+      "cloudStorageGB": 100,
+      "features": [
+        {
+          "id": "monthly_games",
+          "label": "Monthly Games",
+          "detail": "2–3 curated titles per month to keep",
+          "included": true
+        },
+        {
+          "id": "online_mp",
+          "label": "Online Multiplayer",
+          "detail": "Full access for all PS5 and PS4 games",
+          "included": true
+        },
+        {
+          "id": "cloud_storage",
+          "label": "Cloud Save Storage",
+          "detail": "100 GB for game saves",
+          "included": true
+        },
+        {
+          "id": "exclusive_discounts",
+          "label": "PS Store Discounts",
+          "detail": "Members-only sale prices up to 60% off",
+          "included": true
+        },
+        {
+          "id": "share_play",
+          "label": "Share Play",
+          "detail": "Stream gameplay or hand controllers to friends",
+          "included": true
+        },
+        {
+          "id": "game_catalog",
+          "label": "Game Catalog (700+ titles)",
+          "detail": "Largest catalogue — all Extra titles plus more",
+          "included": true
+        },
+        {
+          "id": "ubisoft_plus",
+          "label": "Ubisoft+ Classics",
+          "detail": "Full Ubisoft+ Classics partnership library",
+          "included": true
+        },
+        {
+          "id": "game_trials",
+          "label": "Game Trials",
+          "detail": "Play new first-party releases for up to 2 hours",
+          "included": true
+        },
+        {
+          "id": "classics_catalog",
+          "label": "Classics Catalog",
+          "detail": "500+ PS1, PS2, PS3, PSP, and PS4 titles",
+          "included": true
+        },
+        {
+          "id": "ps_now_streaming",
+          "label": "Cloud Streaming",
+          "detail": "Instant play — stream without console or download",
+          "included": true
+        }
+      ],
+      "exclusivePerks": [
+        "Game Trials — up to 2h of new first-party games",
+        "Classics Catalog (PS1, PS2, PS3, PSP)",
+        "Full cloud streaming library",
+        "PlayStation Stars rewards multiplier (3×)",
+        "Early access to select beta programmes"
+      ],
+      "tagline": "The complete PlayStation experience."
+    }
+  ],
+  "meta": {
+    "source": "PlayStation.com (US pricing, 2024)",
+    "currency": "USD",
+    "updatedAt": "2024-01-01"
+  }
+}

@@ -1,0 +1,377 @@
+/* ============================================================
+   App Shell — Fixed Top Nav + Left Sidebar
+   Matches Aetheris Console / PS+ Analytics stitch design
+   ============================================================ */
+@import './tokens.css';
+
+/* ── Top Nav ───────────────────────────────────────────────── */
+.app-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--z-overlay);
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--sp-8);
+  background: rgba(9, 14, 23, 0.82);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.app-nav__brand {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-black);
+  letter-spacing: var(--ls-tight);
+  background: linear-gradient(135deg, var(--ps-blue-light), var(--ps-teal-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.app-nav__links {
+  display: flex;
+  gap: var(--sp-6);
+  margin-left: var(--sp-8);
+}
+
+.app-nav__link {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semi);
+  font-family: var(--font-display);
+  letter-spacing: var(--ls-wide);
+  color: var(--text-muted);
+  text-decoration: none;
+  padding-bottom: 2px;
+  border-bottom: 2px solid transparent;
+  transition: color var(--dur-fast) ease, border-color var(--dur-fast) ease;
+}
+
+.app-nav__link:hover {
+  color: var(--text-primary);
+}
+
+.app-nav__link.is-active {
+  color: var(--text-primary);
+  border-bottom-color: var(--ps-teal);
+}
+
+.app-nav__center {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-6);
+  flex: 1;
+}
+
+.app-nav__search {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-full);
+  padding: 6px var(--sp-4);
+  margin-left: auto;
+}
+
+.app-nav__search input {
+  border: none;
+  background: none;
+  outline: none;
+  font-size: var(--fs-xs);
+  color: var(--text-secondary);
+  width: 160px;
+  font-family: var(--font-body);
+}
+
+.app-nav__search input::placeholder {
+  color: var(--text-muted);
+}
+
+.app-nav__search svg {
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.app-nav__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  margin-left: var(--sp-4);
+}
+
+.app-nav__icon-btn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: none;
+  background: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: color var(--dur-fast) ease, background var(--dur-fast) ease;
+}
+
+.app-nav__icon-btn:hover {
+  color: var(--ps-teal-light);
+  background: rgba(0,184,212,0.08);
+}
+
+.app-nav__avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--ps-blue), var(--ps-teal));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+  color: #fff;
+  flex-shrink: 0;
+  cursor: pointer;
+  border: 1.5px solid var(--border-mid);
+}
+
+/* ── Left Sidebar ──────────────────────────────────────────── */
+.app-sidebar {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  width: 220px;
+  height: calc(100vh - 60px);
+  background: rgba(9, 14, 23, 0.65);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-right: 1px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  padding: var(--sp-6) 0;
+  z-index: var(--z-raised);
+  overflow-y: auto;
+}
+
+.sidebar-system-label {
+  padding: 0 var(--sp-6);
+  margin-bottom: var(--sp-6);
+}
+
+.sidebar-system-label__title {
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-wider);
+  text-transform: uppercase;
+  color: var(--ps-teal-light);
+}
+
+.sidebar-system-label__status {
+  font-size: 9px;
+  letter-spacing: var(--ls-wider);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.sidebar-nav__item {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-6);
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semi);
+  letter-spacing: var(--ls-wider);
+  text-transform: uppercase;
+  border-left: 3px solid transparent;
+  transition: all var(--dur-fast) ease;
+  cursor: pointer;
+}
+
+.sidebar-nav__item:hover {
+  color: var(--ps-teal-light);
+  background: rgba(0,184,212,0.06);
+}
+
+.sidebar-nav__item.is-active {
+  color: var(--text-primary);
+  background: linear-gradient(90deg, rgba(0,184,212,0.12), transparent);
+  border-left-color: var(--ps-teal);
+}
+
+.sidebar-nav__icon {
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+
+.sidebar-nav__item.is-active .sidebar-nav__icon {
+  opacity: 1;
+}
+
+/* ── Main content offset ───────────────────────────────────── */
+#app {
+  padding-top: 60px;
+  padding-left: 220px;
+}
+
+/* Each narrative section no longer needs full-page padding-left */
+.narrative-section,
+.pv-section,
+.churn-section,
+.causal-section,
+.outcomes-section {
+  padding-left: var(--sp-8);
+  padding-right: var(--sp-8);
+}
+
+/* ── Responsive shell ──────────────────────────────────────── */
+/* At 1280px the sidebar is visible; below, collapse it */
+@media (max-width: 1100px) {
+  .app-sidebar {
+    display: none;
+  }
+  #app {
+    padding-left: 0;
+  }
+}
+
+/* At 1440px and up: widen sidebar slightly for breathing room */
+@media (min-width: 1441px) {
+  .app-sidebar {
+    width: 240px;
+  }
+  #app {
+    padding-left: 240px;
+  }
+}
+
+/* KPI bar: single column on narrow */
+@media (max-width: 800px) {
+  .kpi-bar {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ── KPI Stat Bar ──────────────────────────────────────────── */
+.kpi-bar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--sp-4);
+  margin-bottom: var(--sp-6);
+}
+
+.kpi-card {
+  background: rgba(30, 38, 50, 0.55);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-4) var(--sp-5);
+  position: relative;
+  overflow: hidden;
+}
+
+.kpi-card__label {
+  font-size: 9px;
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-wider);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: var(--sp-2);
+}
+
+.kpi-card__value {
+  font-family: var(--font-display);
+  font-size: var(--fs-2xl);
+  font-weight: var(--fw-black);
+  line-height: 1;
+  letter-spacing: var(--ls-tight);
+  color: var(--text-primary);
+}
+
+.kpi-card__sub {
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+  margin-top: var(--sp-1);
+}
+
+.kpi-card__accent-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+}
+
+/* ── Ripple summary box ────────────────────────────────────── */
+.ripple-summary {
+  background: rgba(0,0,0,0.25);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: var(--sp-4) var(--sp-5);
+  margin-top: var(--sp-4);
+}
+
+.ripple-summary__label {
+  font-size: 9px;
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-wider);
+  text-transform: uppercase;
+  color: var(--ps-teal-light);
+  margin-bottom: var(--sp-2);
+}
+
+.ripple-summary__text {
+  font-size: var(--fs-xs);
+  color: var(--text-secondary);
+  line-height: var(--lh-loose);
+  margin-bottom: var(--sp-3);
+}
+
+.ripple-stats {
+  display: flex;
+  gap: var(--sp-6);
+}
+
+.ripple-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ripple-stat__value {
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+  font-weight: var(--fw-black);
+  color: var(--text-primary);
+  line-height: 1;
+}
+
+.ripple-stat__label {
+  font-size: 9px;
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-wider);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}

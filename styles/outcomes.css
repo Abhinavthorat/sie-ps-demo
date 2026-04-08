@@ -1,0 +1,293 @@
+/* ============================================================
+   Outcomes + Scroll Narrative + Side Dot Nav — Task 5
+   ============================================================ */
+@import './tokens.css';
+
+/* ── Outcome Section ──────────────────────────────────────── */
+.outcomes-section {
+  background: var(--bg-void);
+  padding: var(--sp-20) var(--sp-8) var(--sp-24);
+  position: relative;
+  overflow: hidden;
+}
+
+/* ── Outcome metric cards ─────────────────────────────────── */
+.outcomes-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-6);
+  max-width: 1100px;
+  margin: 0 auto var(--sp-12);
+}
+
+@media (max-width: 900px) {
+  .outcomes-grid { grid-template-columns: 1fr; }
+}
+
+.outcome-card {
+  position: relative;
+  background: rgba(20, 30, 50, 0.65);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  padding: var(--sp-8) var(--sp-6) var(--sp-6);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  transition: border-color var(--dur-base) ease, box-shadow var(--dur-slow) ease;
+}
+
+.outcome-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+}
+
+.outcome-card--churn::before {
+  background: linear-gradient(90deg, var(--ps-teal), var(--ps-blue-light));
+}
+.outcome-card--precision::before {
+  background: linear-gradient(90deg, var(--ps-purple), var(--ps-purple-light));
+}
+.outcome-card--cost::before {
+  background: linear-gradient(90deg, var(--ps-gold), var(--ps-gold-light));
+}
+
+.outcome-card:hover {
+  border-color: var(--border-mid);
+}
+
+.outcome-card--churn:hover    { box-shadow: 0 0 32px rgba(0,184,212,0.15), var(--shadow-lg); }
+.outcome-card--precision:hover { box-shadow: 0 0 32px rgba(168,85,247,0.15), var(--shadow-lg); }
+.outcome-card--cost:hover     { box-shadow: 0 0 32px rgba(245,166,35,0.15), var(--shadow-lg); }
+
+/* Icon badge */
+.outcome-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--sp-2);
+  font-size: 18px;
+}
+
+.outcome-card--churn    .outcome-icon { background: rgba(0,184,212,0.12);  }
+.outcome-card--precision .outcome-icon { background: rgba(168,85,247,0.12); }
+.outcome-card--cost     .outcome-icon { background: rgba(245,166,35,0.12); }
+
+/* The big number */
+.outcome-value {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
+  font-weight: var(--fw-black);
+  line-height: 1;
+  letter-spacing: var(--ls-tight);
+}
+
+.outcome-card--churn    .outcome-value { color: var(--ps-teal-light); }
+.outcome-card--precision .outcome-value { color: var(--ps-purple-light); }
+.outcome-card--cost     .outcome-value { color: var(--ps-gold-light); }
+
+/* Animated radial progress ring behind value */
+.outcome-ring-wrap {
+  position: absolute;
+  top: var(--sp-4);
+  right: var(--sp-4);
+  opacity: 0.18;
+}
+
+.outcome-ring {
+  transform: rotate(-90deg);
+  transform-origin: center;
+}
+
+.outcome-ring-track {
+  fill: none;
+  stroke: rgba(255,255,255,0.08);
+  stroke-width: 3;
+}
+
+.outcome-ring-fill {
+  fill: none;
+  stroke-width: 3;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1.4s var(--ease-out-expo);
+}
+
+.outcome-label {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semi);
+  color: var(--text-primary);
+  margin-top: var(--sp-2);
+}
+
+.outcome-sublabel {
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+  line-height: var(--lh-loose);
+}
+
+.outcome-baseline {
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+  margin-top: var(--sp-3);
+  padding-top: var(--sp-3);
+  border-top: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.outcome-baseline-delta {
+  font-weight: var(--fw-bold);
+}
+
+/* ── Cinematic section divider ────────────────────────────── */
+.section-divider {
+  width: 100%;
+  height: 140px;
+  position: relative;
+  overflow: hidden;
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+.section-divider svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ── Side Dot Navigation ──────────────────────────────────── */
+.dot-nav {
+  position: fixed;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  z-index: var(--z-overlay);
+  padding: var(--sp-3) var(--sp-2);
+  background: rgba(9, 14, 23, 0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-subtle);
+}
+
+.dot-nav__item {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dot-nav__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  transition: all var(--dur-base) var(--ease-out-expo);
+  position: relative;
+}
+
+.dot-nav__item.is-active .dot-nav__dot,
+.dot-nav__item:hover .dot-nav__dot {
+  background: var(--ps-teal-light);
+  box-shadow: 0 0 8px var(--ps-teal-glow);
+  transform: scale(1.4);
+}
+
+/* Tooltip on hover */
+.dot-nav__item::before {
+  content: attr(data-label);
+  position: absolute;
+  right: calc(100% + var(--sp-3));
+  white-space: nowrap;
+  font-size: var(--fs-xs);
+  font-family: var(--font-body);
+  font-weight: var(--fw-semi);
+  letter-spacing: var(--ls-wide);
+  color: var(--text-primary);
+  background: rgba(13, 22, 38, 0.92);
+  border: 1px solid var(--border-mid);
+  border-radius: var(--radius-sm);
+  padding: 3px 8px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(4px);
+  transition: opacity var(--dur-fast) ease, transform var(--dur-fast) ease;
+}
+
+.dot-nav__item:hover::before {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ── Scroll-lock utility: sections outside viewport defer D3 ── */
+.section-deferred {
+  /* placeholder min-height prevents layout jump; D3 hasn't run yet */
+  min-height: 400px;
+}
+
+/* ── Global PS5 polish overrides ─────────────────────────── */
+
+/* Cinematic full-bleed gradient transitions between sections */
+.narrative-section + .narrative-section::before,
+.pv-section + .churn-section::before,
+.churn-section + .causal-section::before {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    var(--ps-teal) 20%,
+    var(--ps-blue) 50%,
+    var(--ps-purple) 80%,
+    transparent 100%);
+  opacity: 0.25;
+}
+
+/* Section entrance — direction-aware (set via JS on section el) */
+.section-enter {
+  opacity: 0;
+  transform: translateY(32px);
+  transition:
+    opacity 0.55s var(--ease-out-expo),
+    transform 0.55s var(--ease-out-expo);
+}
+
+.section-enter.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Tighter transition-fade across all sections for consistency */
+.transition-fade {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.5s var(--ease-out-expo),
+    transform 0.5s var(--ease-out-expo);
+}
+
+.transition-fade.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Responsive: hide dot nav on narrow screens */
+@media (max-width: 1100px) {
+  .dot-nav { display: none; }
+}

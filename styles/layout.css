@@ -1,0 +1,287 @@
+/* ============================================================
+   PS5 Layout — Full-Page Scroll Narrative Shell
+   ============================================================ */
+@import './tokens.css';
+
+/* ── Reset & Base ─────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-snap-type: y proximity;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-void);
+  color: var(--text-primary);
+  line-height: var(--lh-normal);
+  overflow-x: hidden;
+  min-height: 100dvh;
+}
+
+/* ── Scroll Narrative Sections ────────────────────────────── */
+.narrative-section {
+  min-height: 100dvh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: var(--sp-16) var(--sp-8);
+  scroll-snap-align: start;
+  scroll-margin-top: 0;
+}
+
+.narrative-section--hero {
+  min-height: 100dvh;
+  background: var(--bg-void);
+  overflow: hidden;
+}
+
+.narrative-section--tiers {
+  background: var(--bg-deep);
+  padding-top: var(--sp-24);
+  padding-bottom: var(--sp-24);
+  min-height: auto;
+}
+
+/* ── Page Container ───────────────────────────────────────── */
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 var(--sp-6);
+}
+
+.container--wide {
+  max-width: 1440px;
+}
+
+.container--narrow {
+  max-width: 860px;
+}
+
+/* ── Tier Panel Grid ──────────────────────────────────────── */
+.tier-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-6);
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: stretch;
+}
+
+@media (max-width: 960px) {
+  .tier-grid {
+    grid-template-columns: 1fr;
+    max-width: 520px;
+    gap: var(--sp-5);
+  }
+}
+
+@media (min-width: 961px) and (max-width: 1200px) {
+  .tier-grid {
+    gap: var(--sp-4);
+  }
+}
+
+/* ── Panel Base ───────────────────────────────────────────── */
+.panel {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transition:
+    transform var(--dur-slow) var(--ease-out-expo),
+    box-shadow var(--dur-slow) var(--ease-out-expo),
+    border-color var(--dur-base) ease;
+}
+
+.panel:hover {
+  transform: translateY(-6px) scale(1.012);
+}
+
+.panel--essential:hover {
+  box-shadow: var(--glow-blue), var(--shadow-lg);
+  border-color: rgba(0, 112, 209, 0.4);
+}
+
+.panel--extra:hover {
+  box-shadow: var(--glow-teal), var(--shadow-lg);
+  border-color: var(--border-accent);
+}
+
+.panel--premium:hover {
+  box-shadow: var(--glow-purple), var(--shadow-lg);
+  border-color: rgba(168, 85, 247, 0.4);
+}
+
+/* ── Section Header ───────────────────────────────────────── */
+.section-header {
+  text-align: center;
+  margin-bottom: var(--sp-12);
+}
+
+.section-label {
+  display: inline-block;
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semi);
+  letter-spacing: var(--ls-wider);
+  text-transform: uppercase;
+  color: var(--ps-teal-light);
+  margin-bottom: var(--sp-3);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(var(--fs-2xl), 4vw, var(--fs-4xl));
+  font-weight: var(--fw-black);
+  letter-spacing: var(--ls-tight);
+  line-height: var(--lh-tight);
+  color: var(--text-primary);
+}
+
+.section-subtitle {
+  margin-top: var(--sp-4);
+  font-size: var(--fs-md);
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: var(--lh-loose);
+}
+
+/* ── Utility Transition Classes ───────────────────────────── */
+.transition-fade {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity var(--dur-slow) var(--ease-out-expo),
+    transform var(--dur-slow) var(--ease-out-expo);
+}
+
+.transition-fade.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.transition-scale {
+  opacity: 0;
+  transform: scale(0.94);
+  transition:
+    opacity var(--dur-slow) var(--ease-out-expo),
+    transform var(--dur-slow) var(--ease-out-expo);
+}
+
+.transition-scale.is-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.transition-slide-left {
+  opacity: 0;
+  transform: translateX(-30px);
+  transition:
+    opacity var(--dur-xslow) var(--ease-out-expo),
+    transform var(--dur-xslow) var(--ease-out-expo);
+}
+
+.transition-slide-left.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.transition-slide-right {
+  opacity: 0;
+  transform: translateX(30px);
+  transition:
+    opacity var(--dur-xslow) var(--ease-out-expo),
+    transform var(--dur-xslow) var(--ease-out-expo);
+}
+
+.transition-slide-right.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Staggered children */
+.stagger-children > * {
+  transition-delay: calc(var(--stagger-index, 0) * 80ms);
+}
+
+/* ── Background Orb Decorations ───────────────────────────── */
+.bg-orb {
+  position: absolute;
+  border-radius: var(--radius-full);
+  filter: blur(80px);
+  pointer-events: none;
+  opacity: 0.35;
+  z-index: var(--z-base);
+}
+
+.bg-orb--blue {
+  background: var(--ps-blue);
+  width: 500px;
+  height: 500px;
+}
+
+.bg-orb--teal {
+  background: var(--ps-teal);
+  width: 400px;
+  height: 400px;
+}
+
+.bg-orb--purple {
+  background: var(--ps-purple);
+  width: 450px;
+  height: 450px;
+}
+
+/* ── Dividers ─────────────────────────────────────────────── */
+.divider {
+  width: 100%;
+  height: 1px;
+  background: var(--border-subtle);
+  margin: var(--sp-8) 0;
+}
+
+.divider--accent {
+  background: linear-gradient(90deg,
+    transparent,
+    var(--ps-teal) 30%,
+    var(--ps-blue) 70%,
+    transparent);
+  height: 1px;
+  opacity: 0.5;
+}
+
+/* ── Scrollbar Styling ────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-void);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--bg-card);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ps-blue-dark);
+}
