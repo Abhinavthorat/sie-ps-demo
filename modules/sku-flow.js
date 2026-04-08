@@ -144,14 +144,25 @@ function renderLeftArrows(svgEl, tierCounts, totalUsers, selectedTiers) {
 
   const W = svgEl.clientWidth  || 120;
   const H = svgEl.clientHeight || 400;
+  const svgRect = svgEl.getBoundingClientRect();
 
-  // Three destination y-positions (matching pv-band order)
-  const destYs = [H * 0.175, H * 0.5, H * 0.825];
-  const srcY   = H * 0.5;  // mid of stage 1
+  const srcYs = TIERS.map(t => {
+    const el = document.getElementById(`sku-pill-${t.key}`);
+    const r = el?.getBoundingClientRect();
+    return r ? r.top + r.height / 2 - svgRect.top : H * 0.5;
+  });
+
+  const destYs = PV_BANDS.map(b => {
+    const el = document.getElementById(`pv-band-${b.key}`);
+    const r = el?.getBoundingClientRect();
+    return r ? r.top + r.height / 2 - svgRect.top : H * 0.5;
+  });
+
   const srcX   = 0;
   const destX  = W;
 
-  TIERS.forEach(tier => {
+  TIERS.forEach((tier, i) => {
+    const srcY    = srcYs[i];
     const count   = tierCounts[tier.key] ?? 0;
     const active  = selectedTiers.has(tier.key);
     const weight  = totalUsers > 0 ? count / totalUsers : 0;
@@ -201,9 +212,19 @@ function renderRightArrows(svgEl, bandCounts, totalUsers) {
 
   const W = svgEl.clientWidth  || 120;
   const H = svgEl.clientHeight || 400;
+  const svgRect = svgEl.getBoundingClientRect();
 
-  const srcYs  = [H * 0.175, H * 0.5, H * 0.825];
-  const destYs = [H * 0.175, H * 0.5, H * 0.825];
+  const srcYs = PV_BANDS.map(b => {
+    const el = document.getElementById(`pv-band-${b.key}`);
+    const r = el?.getBoundingClientRect();
+    return r ? r.top + r.height / 2 - svgRect.top : H * 0.5;
+  });
+
+  const destYs = CHURN_NODES.map(c => {
+    const el = document.getElementById(`churn-node-${c.key}`);
+    const r = el?.getBoundingClientRect();
+    return r ? r.top + r.height / 2 - svgRect.top : H * 0.5;
+  });
 
   PV_BANDS.forEach((band, i) => {
     const count  = bandCounts[band.key]?.n ?? 0;

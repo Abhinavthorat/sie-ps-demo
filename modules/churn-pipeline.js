@@ -34,9 +34,11 @@ function buildPipelineSVG(containerEl) {
   const SVG_NS = 'http://www.w3.org/2000/svg';
 
   // Layout constants
-  const COL_IN    = 80;
+  const DRAW_W = Math.min(W, 800);
+  const OFFSET_X = Math.max(0, (W - DRAW_W) / 2);
+  const COL_IN    = OFFSET_X + 80;
   const COL_MODEL = W / 2;
-  const COL_OUT   = W - 80;
+  const COL_OUT   = OFFSET_X + DRAW_W - 80;
   const MODEL_W   = 160;
   const MODEL_H   = 130;
   const MODEL_X   = COL_MODEL - MODEL_W / 2;
@@ -105,9 +107,7 @@ function buildPipelineSVG(containerEl) {
   INPUT_NODES.forEach((node, i) => {
     const path = document.createElementNS(SVG_NS, 'path');
     const y    = inYs[i];
-    const cx1  = COL_IN + 60;
-    const cx2  = MODEL_X;
-    path.setAttribute('d', `M${COL_IN + 22},${y} C${cx1},${y} ${cx2},${y} ${MODEL_X},${y}`);
+    path.setAttribute('d', `M${COL_IN + 20},${y} L${COL_IN + 30},${y} L${COL_IN + 30},${y + 26} L${MODEL_X - 16},${y + 26} L${MODEL_X - 16},${y} L${MODEL_X},${y}`);
     path.setAttribute('class', 'pipeline-edge');
     path.setAttribute('data-edge-in', node.id);
     path.setAttribute('stroke', node.color);
@@ -123,7 +123,7 @@ function buildPipelineSVG(containerEl) {
   OUTPUT_NODES.forEach((node, i) => {
     const path = document.createElementNS(SVG_NS, 'path');
     const y    = outYs[i];
-    path.setAttribute('d', `M${MODEL_X + MODEL_W},${y} C${MODEL_X + MODEL_W + 40},${y} ${COL_OUT - 60},${y} ${COL_OUT - 22},${y}`);
+    path.setAttribute('d', `M${MODEL_X + MODEL_W},${y} L${MODEL_X + MODEL_W + 16},${y} L${MODEL_X + MODEL_W + 16},${y + 26} L${COL_OUT - 30},${y + 26} L${COL_OUT - 30},${y} L${COL_OUT - 22},${y}`);
     path.setAttribute('class', 'pipeline-edge');
     path.setAttribute('data-edge-out', node.id);
     path.setAttribute('stroke', node.color);
@@ -285,7 +285,7 @@ function buildPipelineSVG(containerEl) {
     // Icon initials
     const icon = document.createElementNS(SVG_NS, 'text');
     icon.setAttribute('text-anchor', 'middle');
-    icon.setAttribute('dominant-baseline', 'middle');
+    icon.setAttribute('dominant-baseline', 'central');
     icon.setAttribute('fill', node.color);
     icon.setAttribute('font-family', 'var(--font-display)');
     icon.setAttribute('font-size', '10');
@@ -340,7 +340,7 @@ function buildPipelineSVG(containerEl) {
     const val = document.createElementNS(SVG_NS, 'text');
     val.setAttribute('class', `output-value output-val--${node.id}`);
     val.setAttribute('text-anchor', 'middle');
-    val.setAttribute('dominant-baseline', 'middle');
+    val.setAttribute('dominant-baseline', 'central');
     val.setAttribute('fill', node.color);
     val.setAttribute('font-family', 'var(--font-display)');
     val.setAttribute('font-size', node.id === 'churn-prob' ? '8' : '9');
@@ -485,10 +485,12 @@ function renderImportance(containerEl) {
   const rows = features.map((f, i) => {
     const pct = (f.importance * 100).toFixed(1);
     return `
-      <div class="importance-row" style="--row-delay:${i * 120}ms;">
-        <div>
-          <p class="importance-label">${f.label}</p>
-          <p style="font-size:10px;color:var(--text-muted);margin-top:1px;">${f.sublabel}</p>
+      <div class="importance-row" style="--row-delay:${i * 120}ms; padding: 0;">
+        <div style="display: flex; align-items: center;">
+          <div>
+            <p class="importance-label">${f.label}</p>
+            <p style="font-size:var(--fs-xs);color:var(--text-muted);margin-top:1px;">${f.sublabel}</p>
+          </div>
         </div>
         <div>
           <div class="importance-bar-track">
@@ -498,7 +500,7 @@ function renderImportance(containerEl) {
             </div>
           </div>
         </div>
-        <div class="importance-value" style="color:${f.color};">${pct}%</div>
+        <div class="importance-value" style="color:${f.color}; display: flex; align-items: center; justify-content: flex-end;">${pct}%</div>
       </div>`;
   }).join('');
 
@@ -589,7 +591,7 @@ function renderTimeline(containerEl) {
     </div>
 
     <!-- ── Scrubber ───────────────────────────────────────── -->
-    <div style="padding: 0 var(--sp-2); margin-bottom: var(--sp-5);">
+    <div style="padding: 0 var(--sp-2); margin-bottom: var(--sp-5); display: flex; align-items: center;">
       <input  id="timeline-scrubber"
               class="timeline-scrubber"
               type="range"

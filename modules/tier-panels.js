@@ -198,6 +198,11 @@ function injectStyles() {
       padding: var(--sp-6) var(--sp-6) var(--sp-5);
       position: relative;
       z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      height: 225px; /* Fixed height for consistent vertical alignment */
+      box-sizing: border-box;
     }
 
     .tier-tag {
@@ -226,7 +231,7 @@ function injectStyles() {
     .tier-tagline {
       font-size: var(--fs-sm);
       color: var(--text-secondary);
-      margin-bottom: var(--sp-4);
+      margin-bottom: auto; /* Pushes catalog chip down or fills space */
       line-height: var(--lh-snug);
     }
 
@@ -292,10 +297,12 @@ function injectStyles() {
 
     .feature-row {
       display: flex;
-      align-items: flex-start;
+      align-items: center; /* Vertically center icon and text */
       gap: var(--sp-3);
       font-size: var(--fs-sm);
       line-height: var(--lh-snug);
+      text-align: left; /* Ensure left-alignment */
+      min-height: 2rem; /* Consistent row height */
     }
 
     .feature-row--off {

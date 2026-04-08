@@ -34,7 +34,7 @@ const IV_LABEL = {
 };
 
 // Lane pixel heights
-const LANE_H  = { eng: 95, val: 95, churn: 125, events: 50 };
+const LANE_H  = { eng: 105, val: 105, churn: 105, events: 50 };
 const LANE_GAP = 10;
 const LANE_TOPS = {
   eng:    0,
@@ -530,8 +530,10 @@ export function createJourneyChart(containerEl, ivCardEl) {
           <div class="viz-tooltip__row"><span>Churn risk</span><strong>${(pt.churnRisk * 100).toFixed(1)}%</strong></div>
           ${showCF ? `<div class="viz-tooltip__row"><span>Without interventions</span><strong>${(pt.churnRiskCF * 100).toFixed(1)}%</strong></div>` : ''}`;
 
-        const x = Math.min(event.clientX + 14, window.innerWidth  - 220);
-        const y = Math.min(event.clientY + 14, window.innerHeight - 160);
+        const tooltipW = tooltip.offsetWidth || 220;
+        const tooltipH = tooltip.offsetHeight || 160;
+        const x = Math.min(event.clientX + 14, window.innerWidth  - tooltipW - 14);
+        const y = Math.min(event.clientY + 14, window.innerHeight - tooltipH - 14);
         tooltip.style.left = `${x}px`;
         tooltip.style.top  = `${y}px`;
         tooltip.classList.add('is-visible');

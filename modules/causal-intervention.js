@@ -168,7 +168,7 @@ function renderCounterfactual(containerEl, intervention) {
     .x(d => xScale(d.x))
     .y0((d, i) => yScale(control[i]?.y ?? d.y))
     .y1(d => yScale(d.y))
-    .curve(d3.curveCatmullRom);
+    .curve(d3.curveMonotoneX);
 
   // Gradient for gap fill
   const gapGrad = defs.append('linearGradient')
@@ -179,17 +179,21 @@ function renderCounterfactual(containerEl, intervention) {
   gapGrad.append('stop').attr('offset', '100%')
     .attr('stop-color', iv.color).attr('stop-opacity', 0.05);
 
+  defs.append('clipPath').attr('id', 'cf-gap-clip')
+    .append('rect').attr('width', iW).attr('height', iH);
+
   const gapPath = g.append('path')
     .datum(treated)
     .attr('fill', `url(#cf-gap-grad-${intervention})`)
     .attr('d', areaGap)
+    .attr('clip-path', 'url(#cf-gap-clip)')
     .attr('opacity', 0);
 
   // ── Control curve (without intervention) ──────────────────
   const lineGen = d3.line()
     .x(d => xScale(d.x))
     .y(d => yScale(d.y))
-    .curve(d3.curveCatmullRom);
+    .curve(d3.curveMonotoneX);
 
   // Control area grad
   const ctrlGrad = defs.append('linearGradient')
@@ -202,7 +206,7 @@ function renderCounterfactual(containerEl, intervention) {
 
   const ctrlArea = d3.area()
     .x(d => xScale(d.x)).y0(iH).y1(d => yScale(d.y))
-    .curve(d3.curveCatmullRom);
+    .curve(d3.curveMonotoneX);
 
   g.append('path').datum(control)
     .attr('fill', `url(#cf-ctrl-grad-${intervention})`)
@@ -226,7 +230,7 @@ function renderCounterfactual(containerEl, intervention) {
 
   const trtArea = d3.area()
     .x(d => xScale(d.x)).y0(iH).y1(d => yScale(d.y))
-    .curve(d3.curveCatmullRom);
+    .curve(d3.curveMonotoneX);
 
   g.append('path').datum(treated)
     .attr('fill', `url(#cf-trt-grad-${intervention})`)
@@ -389,9 +393,9 @@ function renderDistributionShift(containerEl, svgContainerEl, readoutEl, interve
   svgContainerEl.innerHTML = '';
 
   const W      = svgContainerEl.clientWidth || 480;
-  const margin = { top: 20, right: 20, bottom: 44, left: 44 };
+  const margin = { top: 30, right: 28, bottom: 48, left: 52 };
   const iW     = W - margin.left - margin.right;
-  const iH     = Math.max(150, Math.min(220, iW * 0.38));
+  const iH     = Math.max(180, Math.min(260, iW * 0.22));
   const H      = iH + margin.top + margin.bottom;
 
   const xScale = d3.scaleLinear().domain([0, 1]).range([0, iW]);
@@ -437,9 +441,9 @@ function renderDistributionShift(containerEl, svgContainerEl, readoutEl, interve
     .call(d3.axisBottom(xScale).ticks(5).tickFormat(d => `${(d * 100).toFixed(0)}%`));
 
   g.append('text')
-    .attr('x', iW / 2).attr('y', iH + 36)
+    .attr('x', iW / 2).attr('y', iH + 40)
     .attr('text-anchor', 'middle').attr('fill', 'var(--text-muted)')
-    .style('font-size', '10px').style('letter-spacing', '0.07em')
+    .style('font-size', '11px').style('letter-spacing', '0.07em')
     .style('text-transform', 'uppercase')
     .text('Churn Probability →');
 
@@ -670,7 +674,7 @@ function renderNetwork(containerEl, intervention) {
     .force('link', d3.forceLink(links).id(d => d.id).distance(40).strength(0.3))
     .force('charge', d3.forceManyBody().strength(-55))
     .force('center', d3.forceCenter(W / 2, H / 2))
-    .force('collision', d3.forceCollide(10))
+    .force('collision', d3.forceCollide(d => (d.tier === 'premium' ? 6 : d.tier === 'extra' ? 5 : 4.5) + 3))
     .alphaDecay(0.03);
 
   // ── Edges ───────────────────────────────────────────────────
@@ -882,7 +886,11 @@ function renderNetwork(containerEl, intervention) {
     linkSel
       .attr('x1', d => d.source.x).attr('y1', d => d.source.y)
       .attr('x2', d => d.target.x).attr('y2', d => d.target.y);
-    nodeSel.attr('transform', d => `translate(${d.x},${d.y})`);
+    nodeSel.attr('transform', d => {
+      d.x = Math.max(10, Math.min(W - 10, d.x));
+      d.y = Math.max(10, Math.min(H - 10, d.y));
+      return `translate(${d.x},${d.y})`;
+    });
   });
 
   simulation.alpha(1).restart();

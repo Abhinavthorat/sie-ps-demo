@@ -342,6 +342,7 @@
   border-radius: var(--radius-md);
   background: rgba(20,30,50,0.7);
   border: 1px solid var(--border-subtle);
+  border-left-width: 3px;
   padding: var(--sp-3) var(--sp-4);
   display: flex;
   align-items: center;
@@ -349,9 +350,9 @@
   transition: border-color var(--dur-fast) ease;
 }
 
-.churn-node--low    { border-left: 3px solid var(--ps-teal); }
-.churn-node--mid    { border-left: 3px solid var(--ps-gold); }
-.churn-node--high   { border-left: 3px solid #FF716C; }
+.churn-node--low    { border-left-color: var(--ps-teal); }
+.churn-node--mid    { border-left-color: var(--ps-gold); }
+.churn-node--high   { border-left-color: #FF716C; }
 
 .churn-arc-wrap {
   position: relative;

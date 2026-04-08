@@ -49,8 +49,6 @@ body {
 
 .narrative-section--tiers {
   background: var(--bg-deep);
-  padding-top: var(--sp-24);
-  padding-bottom: var(--sp-24);
   min-height: auto;
 }
 
@@ -68,6 +66,10 @@ body {
 
 .container--narrow {
   max-width: 860px;
+}
+
+.container--ultrawide {
+  max-width: 1920px;
 }
 
 /* ── Tier Panel Grid ──────────────────────────────────────── */
@@ -98,16 +100,18 @@ body {
 /* ── Panel Base ───────────────────────────────────────────── */
 .panel {
   background: var(--bg-panel);
-  border: 1px solid var(--border-subtle);
+  border: 1px solid var(--border-subtle);   /* Use inside border */
   border-radius: var(--radius-xl);
   overflow: hidden;
   position: relative;
   display: flex;
   flex-direction: column;
+  outline: 1px solid transparent;            /* Preparation for outline */
+  outline-offset: -1px;
   transition:
     transform var(--dur-slow) var(--ease-out-expo),
     box-shadow var(--dur-slow) var(--ease-out-expo),
-    border-color var(--dur-base) ease;
+    outline-color var(--dur-base) ease;
 }
 
 .panel:hover {
@@ -116,17 +120,20 @@ body {
 
 .panel--essential:hover {
   box-shadow: var(--glow-blue), var(--shadow-lg);
-  border-color: rgba(0, 112, 209, 0.4);
+  outline-color: rgba(0, 112, 209, 0.4);
+  border-color: transparent;
 }
 
 .panel--extra:hover {
   box-shadow: var(--glow-teal), var(--shadow-lg);
-  border-color: var(--border-accent);
+  outline-color: var(--border-accent);
+  border-color: transparent;
 }
 
 .panel--premium:hover {
   box-shadow: var(--glow-purple), var(--shadow-lg);
-  border-color: rgba(168, 85, 247, 0.4);
+  outline-color: rgba(168, 85, 247, 0.4);
+  border-color: transparent;
 }
 
 /* ── Section Header ───────────────────────────────────────── */

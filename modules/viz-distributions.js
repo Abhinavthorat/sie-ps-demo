@@ -144,7 +144,7 @@ export function createDistributions(containerEl, users) {
     tierPaths.clear();
 
     const W  = containerEl.clientWidth || 900;
-    const margin = { top: 24, right: 32, bottom: 48, left: 48 };
+    const margin = { top: 24, right: 32, bottom: 48, left: 104 };
     const iW = W - margin.left - margin.right;
     const iH = Math.max(180, Math.min(260, iW * 0.22));
     const H  = iH + margin.top + margin.bottom;
@@ -174,7 +174,7 @@ export function createDistributions(containerEl, users) {
     g.append('text')
       .attr('x', iW / 2).attr('y', iH + 38)
       .attr('text-anchor', 'middle').attr('fill', 'var(--text-muted)')
-      .style('font-size', '11px').style('letter-spacing', '0.07em')
+      .style('font-size', 'var(--fs-xs)').style('letter-spacing', '0.07em')
       .style('text-transform', 'uppercase').text('Perceived Value Score →');
 
     // Per-tier curves
@@ -259,7 +259,7 @@ export function createDistributions(containerEl, users) {
         .attr('class', 'dist-mean-label').attr('data-tier', tier)
         .attr('x', x + 4).attr('y', 10)
         .attr('fill', meta.color)
-        .style('font-size', '10px').style('font-weight', '700')
+        .style('font-size', 'var(--fs-xs)').style('font-weight', 'var(--fw-bold)')
         .attr('opacity', visible ? 1 : 0)
         .text(`μ ${mean.toFixed(0)}`);
     });
@@ -289,7 +289,7 @@ export function createDistributions(containerEl, users) {
     ann.append('text')
       .attr('x', (gapX1 + gapX2) / 2).attr('y', arrowY - 6)
       .attr('text-anchor', 'middle').attr('fill', 'var(--text-secondary)')
-      .style('font-size', '10px').style('font-weight', '600')
+      .style('font-size', 'var(--fs-xs)').style('font-weight', 'var(--fw-semi)')
       .text(`Value gap: +${(premium.mean - essential.mean).toFixed(0)} pts  (Essential → Premium)`);
 
     // Hover buckets

@@ -60,7 +60,7 @@ function showTooltip(tooltip, cell, event) {
     <div class="viz-tooltip__divider"></div>
     <div class="viz-tooltip__row"><span>Users in cell</span><strong>${cell.count}</strong></div>
     <div class="viz-tooltip__divider"></div>
-    <div style="font-size:10px; color:var(--ps-teal-light); text-align:center; margin-top:4px;">
+    <div style="font-size:var(--fs-xs); color:var(--ps-teal-light); text-align:center; margin-top:4px;">
       Click to filter all charts
     </div>`;
   const x = Math.min(event.clientX + 14, window.innerWidth  - 280);
@@ -156,7 +156,7 @@ export function createHeatmap(containerEl, users) {
       .attr('y', -12)
       .attr('text-anchor', 'middle')
       .attr('fill', 'var(--text-secondary)')
-      .style('font-size', '11px').style('font-weight', '600')
+      .style('font-size', 'var(--fs-xs)').style('font-weight', 'var(--fw-semi)')
       .style('letter-spacing', '0.08em').style('text-transform', 'uppercase')
       .text(d => SEG_LABEL[d]);
 
@@ -168,7 +168,7 @@ export function createHeatmap(containerEl, users) {
       .attr('text-anchor', 'end')
       .attr('dominant-baseline', 'middle')
       .attr('fill', d => TIER_ACCENT[d])
-      .style('font-size', '12px').style('font-weight', '700')
+      .style('font-size', 'var(--fs-xs)').style('font-weight', 'var(--fw-bold)')
       .style('letter-spacing', '0.04em')
       .text(d => TIER_LABEL[d]);
 
@@ -196,7 +196,7 @@ export function createHeatmap(containerEl, users) {
       .attr('dominant-baseline', 'middle')
       .attr('fill', d => d.avg > 60 ? 'rgba(0,0,0,0.75)' : '#fff')
       .style('font-family', 'var(--font-display)')
-      .style('font-size', '20px').style('font-weight', '800')
+      .style('font-size', 'var(--fs-lg)').style('font-weight', 'var(--fw-black)')
       .text(d => d.avg.toFixed(0));
 
     cellGroups.append('text')
@@ -205,7 +205,7 @@ export function createHeatmap(containerEl, users) {
       .attr('text-anchor', 'middle')
       .attr('dominant-baseline', 'middle')
       .attr('fill', d => d.avg > 60 ? 'rgba(0,0,0,0.55)' : 'rgba(255,255,255,0.55)')
-      .style('font-size', '10px').style('font-weight', '600')
+      .style('font-size', 'var(--fs-xs)').style('font-weight', 'var(--fw-semi)')
       .style('letter-spacing', '0.08em').style('text-transform', 'uppercase')
       .text(d => `n=${d.count}`);
 
@@ -257,7 +257,7 @@ export function createHeatmap(containerEl, users) {
     lg.append('text')
       .attr('x', legendW / 2).attr('y', -8)
       .attr('text-anchor', 'middle').attr('fill', 'var(--text-muted)')
-      .style('font-size', '10px').style('letter-spacing', '0.08em')
+      .style('font-size', 'var(--fs-xs)').style('letter-spacing', '0.08em')
       .style('text-transform', 'uppercase').text('avg perceived value →');
 
     // ── Incoming: scatter brush → highlight cells ──────────────

@@ -19,7 +19,7 @@ const SEG_COLOR = {
   hardcore:   '#A855F7',
 };
 const SEG_LABEL = { casual: 'Casual', 'mid-core': 'Mid-Core', hardcore: 'Hardcore' };
-const MARGIN = { top: 20, right: 20, bottom: 48, left: 52 };
+const MARGIN = { top: 20, right: 20, bottom: 48, left: 104 };
 
 function makeTooltip() {
   let el = document.getElementById('scatter-tooltip');
@@ -155,12 +155,12 @@ export function createScatter(svgContainerEl, readoutEl, allUsers) {
 
     g.append('text').attr('x', iW / 2).attr('y', iH + 40)
       .attr('text-anchor', 'middle').attr('fill', 'var(--text-muted)')
-      .style('font-size', '11px').style('letter-spacing', '0.07em')
+      .style('font-size', 'var(--fs-xs)').style('letter-spacing', '0.07em')
       .style('text-transform', 'uppercase').text('Sessions per week →');
     g.append('text')
       .attr('transform', 'rotate(-90)').attr('x', -iH / 2).attr('y', -38)
       .attr('text-anchor', 'middle').attr('fill', 'var(--text-muted)')
-      .style('font-size', '11px').style('letter-spacing', '0.07em')
+      .style('font-size', 'var(--fs-xs)').style('letter-spacing', '0.07em')
       .style('text-transform', 'uppercase').text('← Perceived value');
 
     // Churn risk zone
@@ -171,7 +171,7 @@ export function createScatter(svgContainerEl, readoutEl, allUsers) {
     g.append('text')
       .attr('x', xScale(2.5)).attr('y', yScale(38) - 6)
       .attr('text-anchor', 'middle').attr('fill', 'rgba(255,113,108,0.55)')
-      .style('font-size', '9.5px').style('font-weight', '600')
+      .style('font-size', 'var(--fs-xs)').style('font-weight', 'var(--fw-semi)')
       .style('letter-spacing', '0.08em').style('text-transform', 'uppercase')
       .text('⚠ Churn risk zone');
 
@@ -258,7 +258,14 @@ export function createScatter(svgContainerEl, readoutEl, allUsers) {
         }
       });
 
-    const brushG = g.append('g').attr('class', 'brush').call(brush);
+    const defs = svg.append('defs');
+    defs.append('clipPath').attr('id', 'scatter-clip')
+      .append('rect').attr('width', iW).attr('height', iH);
+      
+    const brushG = g.append('g').attr('class', 'brush')
+      .attr('clip-path', 'url(#scatter-clip)')
+      .call(brush);
+      
     brushGRef = brushG;
     brushRef  = brush;
 
